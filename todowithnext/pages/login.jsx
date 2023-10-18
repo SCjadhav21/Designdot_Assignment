@@ -41,7 +41,7 @@ const Login = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
     if (data.email && data.password) {
-      axios("http://localhost:8080/user/login", {
+      axios("https://dull-worm-top-coat.cyclic.app/user/login", {
         method: "POST",
         data: data,
         headers: {

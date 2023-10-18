@@ -11,7 +11,7 @@ const Home = () => {
   const [refresh, setRefresh] = useState(false);
 
   const getdata = () => {
-    axios(`http://localhost:8080/todo/`, {
+    axios(`https://dull-worm-top-coat.cyclic.app/todo/`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -23,7 +23,7 @@ const Home = () => {
   };
 
   const UpdateTodo = (id) => {
-    axios(`http://localhost:8080/todo/${id}`, {
+    axios(`https://dull-worm-top-coat.cyclic.app/todo/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -37,7 +37,7 @@ const Home = () => {
       .catch((err) => console.error(err));
   };
   const DeleteTodo = (id) => {
-    axios(`http://localhost:8080/todo/${id}`, {
+    axios(`https://dull-worm-top-coat.cyclic.app/todo/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

@@ -38,7 +38,7 @@ const Navbar = ({ refresh, setRefresh }) => {
         todo: todo,
         iscompleted: false,
       };
-      axios("http://localhost:8080/todo/create", {
+      axios("https://dull-worm-top-coat.cyclic.app/todo/create", {
         method: "POST",
         data: data,
         headers: {

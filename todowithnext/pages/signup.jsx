@@ -48,7 +48,7 @@ const Signup = () => {
       if (data.password.length < 6) {
         alert("password is too stort");
       } else {
-        axios("http://localhost:8080/user/register", {
+        axios("https://dull-worm-top-coat.cyclic.app/user/register", {
           method: "POST",
           data: data,
           headers: {
