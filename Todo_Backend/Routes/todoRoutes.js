@@ -16,10 +16,15 @@ TodoRoutes.get("/", async (req, res) => {
 });
 
 TodoRoutes.post("/create", async (req, res) => {
-  let todo = req.body;
+  let { todo, userId } = req.body;
+
   try {
-    const newtodo = await new TodoModel(todo);
-    newtodo.save();
+    let NewTodo = new TodoModel({
+      todo,
+      iscompleted: false,
+      userId,
+    });
+    NewTodo.save();
     res.status(201).send("todo created successfully");
   } catch (e) {
     res.status(500).send(e.message);
@@ -31,9 +36,10 @@ TodoRoutes.patch("/:id", async (req, res) => {
 
   try {
     const oldtodo = await TodoModel.findOne({ _id: id });
-    const useId_of_product = oldtodo.userId;
+    const useId_of_todo = oldtodo.userId;
+
     const userId_of_user = req.body.userId;
-    if (useId_of_product !== userId_of_user) {
+    if (useId_of_todo !== userId_of_user) {
       res.status(200).send("You are not athorised");
     } else {
       const status = !oldtodo.iscompleted;
