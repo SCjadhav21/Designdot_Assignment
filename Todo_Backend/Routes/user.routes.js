@@ -1,13 +1,14 @@
 const express = require("express");
 
 const jwt = require("jsonwebtoken");
-const { UserModel } = require("../models/user.model");
-const { Authentication } = require("../middelware/authentication");
+
+const { UserModel } = require("../Model/user.model");
+const { Auth } = require("../middelware/authentication");
 
 const UserRoutes = express.Router();
 
 UserRoutes.post("/register", async (req, res) => {
-  let { name, email, password, userType } = req.body;
+  let { name, email, password } = req.body;
   try {
     const users = await UserModel.find({ email });
     if (users.length > 0) {
@@ -52,7 +53,7 @@ UserRoutes.post("/login", async (req, res) => {
   }
 });
 
-UserRoutes.get("/checkAuth", Authentication, async (req, res) => {
+UserRoutes.get("/checkAuth", Auth, async (req, res) => {
   try {
     res.status(200).send("Authorised");
   } catch (e) {

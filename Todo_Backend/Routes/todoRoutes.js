@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const { TodoModel } = require("../Model/todo.model");
-const { Auth } = require("../middelware/middelware");
+const { Auth } = require("../middelware/authentication");
 app.use(express.json());
 
 const TodoRoutes = express.Router();
