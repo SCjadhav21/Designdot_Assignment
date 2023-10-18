@@ -7,13 +7,11 @@ app.use(express.json());
 const TodoRoutes = express.Router();
 TodoRoutes.use(Auth);
 TodoRoutes.get("/", async (req, res) => {
-  console.log(req.body);
-
   try {
     const todos = await TodoModel.find({ userId: req.body.userId });
-    res.send(todos);
-  } catch (err) {
-    res.send({ massage: err.message, alert: "Something went wrong" });
+    res.status(200).send(todos);
+  } catch (e) {
+    res.status(500).send(e.message);
   }
 });
 
@@ -22,10 +20,9 @@ TodoRoutes.post("/create", async (req, res) => {
   try {
     const newtodo = await new TodoModel(todo);
     newtodo.save();
-    res.send({ massage: "created todo", alert: "todo added successfully" });
-  } catch (err) {
-    console.log(err);
-    res.send({ massage: err.message, alert: "Something went wrong" });
+    res.status(201).send("todo created successfully");
+  } catch (e) {
+    res.status(500).send(e.message);
   }
 });
 
@@ -37,7 +34,7 @@ TodoRoutes.patch("/:id", async (req, res) => {
     const useId_of_product = oldtodo.userId;
     const userId_of_user = req.body.userId;
     if (useId_of_product !== userId_of_user) {
-      res.send({ massage: "not Auhorised", alert: "You are not athorised" });
+      res.status(200).send("You are not athorised");
     } else {
       const status = !oldtodo.iscompleted;
 
@@ -46,11 +43,10 @@ TodoRoutes.patch("/:id", async (req, res) => {
         { iscompleted: status }
       );
 
-      res.send({ massage: "updated", alert: "Status updated successfully" });
+      res.status(200).send("Status updated successfully");
     }
-  } catch (err) {
-    console.log(err);
-    res.send({ massage: err.message, alert: "Something went wrong" });
+  } catch (e) {
+    res.status(500).send(e.message);
   }
 });
 
@@ -62,14 +58,13 @@ TodoRoutes.delete("/:id", async (req, res) => {
     const useId_of_product = oldtodo.userId;
     const userId_of_user = req.body.userId;
     if (useId_of_product !== userId_of_user) {
-      res.send({ massage: "not Auhorised", alert: "You are not athorised" });
+      res.status(200).send("You are not athorised");
     } else {
       await TodoModel.findOneAndDelete({ _id: id });
-      res.send({ massage: "deleted", alert: "todo deleted successfully" });
+      res.status(200).send("todo deleted successfully");
     }
-  } catch (err) {
-    console.log(err);
-    res.send({ massage: err.message, alert: "Something went wrong" });
+  } catch (e) {
+    res.status(500).send(e.message);
   }
 });
 module.exports = { TodoRoutes };

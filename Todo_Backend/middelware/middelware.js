@@ -6,7 +6,9 @@ const Auth = (req, res, next) => {
 
   jwt.verify(token, process.env.key, async (err, decoded) => {
     if (err) {
-      res.send({ massage: err.message, alert: "you are not logged in" });
+      res
+        .status(200)
+        .send({ message: err.message, alert: "you are not logged in" });
     } else {
       req.body.userId = decoded.userId;
       next();
